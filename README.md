@@ -1,4 +1,4 @@
-# GenUI AnLLM Chatbot Clone (Frontend)
+# GenUI An LLM Chatbot Clone (Frontend)
 
 ## Project Overview
 
@@ -47,12 +47,12 @@ The clone emphasizes clean design, intuitive user interactions, and dynamic cont
 ### Installation
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/llm-chatbot-clone.git
+   git clone https://github.com/minion9/GenUI.git
    ```
 
 2. Navigate to the project directory
    ```bash
-   cd llm-chatbot-clone
+   cd genui
    ```
 
 3. Open `index.html` in your preferred web browser
@@ -68,15 +68,14 @@ llm-chatbot-clone/
 ```
 
 ## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/yourusername/llm-chatbot-clone/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/minion9/GenUI/issues).
 
 ## 📌 Notes
 - This is a frontend-only implementation
 - Backend integration would require additional development
 
 ## 📄 License
-[Specify your license here, e.g., MIT]
+Apache 2.0
 
 ## 🙏 Acknowledgments
 - Inspiration from leading LLM chatbot interfaces
-```
