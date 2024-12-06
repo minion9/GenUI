@@ -75,7 +75,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check [iss
 - Backend integration would require additional development
 
 ## 📄 License
-Apache 2.0
+- Apache 2.0
 
 ## 🙏 Acknowledgments
 - Inspiration from leading LLM chatbot interfaces
