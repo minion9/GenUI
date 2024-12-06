@@ -1174,3 +1174,96 @@ function autoResize(textarea) {
   // Set container height
   if (container) container.style.height = `${newHeight + 10}px`;
 }
+
+// Function to get the current theme from cookies
+function getThemeFromCookies() {
+  const cookies = document.cookie.split('; ');
+  const themeCookie = cookies.find(row => row.startsWith('theme='));
+  return themeCookie ? themeCookie.split('=')[1] : null;
+}
+
+// Function to save theme preference in cookies
+function saveThemeState(theme) {
+  // Set cookie with a 1-year expiration
+  const expirationDate = new Date();
+  expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+  document.cookie = `theme=${theme}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Strict`;
+
+  // Optional: Send to server for additional persistence/tracking
+  // fetch('/save_settings', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ theme })
+  // }).catch(error => {
+  //   console.error('Failed to save theme on server:', error);
+  // });
+}
+
+// Function to apply the saved theme
+function applyThemeSetting() {
+  const savedTheme = getThemeFromCookies();
+  
+  if (savedTheme === 'dark') {
+    enableDarkMode();
+  } else if (savedTheme === 'light') {
+    enableLightMode();
+  } else {
+    // Default to system preference if no saved theme
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    prefersDarkMode ? enableDarkMode() : enableLightMode();
+  }
+}
+
+// Function to switch to light mode
+function enableLightMode() {
+  document.documentElement.setAttribute('data-mode', '');
+}
+
+// Function to switch to dark mode
+function enableDarkMode() {
+  document.documentElement.setAttribute('data-mode', 'dark');
+}
+
+// Ensure DOM is fully loaded before adding event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // Theme toggle event listeners
+  const lightModeButton = document.getElementById('light-mode');
+  const darkModeButton = document.getElementById('dark-mode');
+
+  if (lightModeButton) {
+    lightModeButton.addEventListener('click', () => {
+      enableLightMode();
+      saveThemeState('light');
+    });
+  }
+
+  if (darkModeButton) {
+    darkModeButton.addEventListener('click', () => {
+      enableDarkMode();
+      saveThemeState('dark');
+    });
+  }
+
+  // Dropdown toggle function
+  const toggleButton = document.querySelector(".dark-mode-toggle");
+  const dropdown = document.getElementById("dark-mode-options");
+
+  if (toggleButton && dropdown) {
+    toggleButton.addEventListener('click', () => {
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+  }
+
+  // Close the dropdown if clicked outside
+  document.addEventListener("click", function(event) {
+    const toggleButton = document.querySelector(".dark-mode-toggle");
+    const dropdown = document.getElementById("dark-mode-options");
+    
+    if (toggleButton && dropdown && !toggleButton.contains(event.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Apply the saved theme
+  applyThemeSetting();
+});
